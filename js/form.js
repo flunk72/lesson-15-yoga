@@ -1,5 +1,30 @@
 /*jshint esversion: 6 */
+
+
+
 function form() {
+
+    let body = document.querySelector("body"),
+        overlay = document.querySelector(".overlay"),
+        detail = document.querySelector(".more"),
+        inputModal = document.querySelector(".popup-form__input");
+
+    body.addEventListener("click", (event) => {
+        let target = event.target;
+        if (target && target.classList.contains("more") || target.classList.contains("description-btn")) {
+            overlay.style.display = "block";
+            detail.classList.add("more-splash");
+            document.body.style.overflow = "hidden";
+        }
+        if (target && target.classList.contains("popup-close")) {
+            overlay.style.display = "none";
+            detail.classList.remove("more-splash");
+            document.body.style.overflow = "";
+            statusMessage.textContent = "";
+            inputModal.value = "";
+        }
+    });
+
     let message = {
         loading: 'Загрузка...',
         success: 'Спасибо! Скоро мы с Вами свяжемся!',
@@ -31,8 +56,9 @@ function form() {
             formData.forEach(function (value, key) {
                 obj[key] = value;
             });
+            let json = JSON.stringify(obj);
 
-            function postData(data) {
+            function postData() {
                 return new Promise(function (resolve, reject) {
                     let request = new XMLHttpRequest();
                     request.open("POST", "server.php");
@@ -46,7 +72,7 @@ function form() {
                             reject();
                         }
                     };
-                    request.send(data);
+                    request.send(json);
                 });
             }
 
