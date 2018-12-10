@@ -390,7 +390,7 @@ module.exports = tabs;
 
 /*jshint esversion: 6 */
 function timer() {
-    let deadline = "2018-12-30";
+    let deadline = "2018.12.11";
 
     let getTimeRemaining = (endtime) => {
         let t = Date.parse(endtime) - Date.parse(new Date()),
